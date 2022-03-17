@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
   
     searchBar: {
       marginTop: StatusBar.currentHeight,
+      padding: 16,
     },
   
     listView: { 
