@@ -1,57 +1,13 @@
 import React from 'react';
-import styled from 'styled-components/native';
-import { Text, Image, View } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 
-import { Spacer } from '../../../components/spacer/spacer.component'
-import { Card } from 'react-native-paper';
-import { sizes } from '../../../infrastructure/theme/sizes';
-import star from '../../../../assets/star'
-import open from '../../../../assets/open'
 
+import { Spacer } from '../../../components/spacer/spacer.component';
+import { Text } from '../../../components/typography/text.component';
+import star from '../../../../assets/star';
+import open from '../../../../assets/open';
 
-const Title = styled.Text`
-    color: ${props => props.theme.colors.ui.primary};
-    font-family: ${props => props.theme.fonts.heading};
-    font-size: ${props => props.theme.fontSizes.title};
-`;
-
-const Info = styled.View`
-    padding: ${props => props.theme.space[3]};
-`
-
-const Section = styled.View`
-    flex-direction: row;
-`
-
-const SectionEnd = styled.View`
-    flex: 1;
-    flex-shrink: 1;
-    flex-direction: row;
-    justifyContent: flex-end;
-    align-items: center;
-`
-
-const Rating = styled.View`
-    flex-direction: row;
-    padding: ${props => props.theme.space[2]};
-`
-
-const Address = styled.Text`
-    font-family: ${props => props.theme.fonts.body};
-    font-size: ${props => props.theme.fontSizes.caption};
-    padding: ${props => props.theme.space[2]};
-`
-
-const RestaurantCard = styled(Card)`
-        background-color: ${props => props.theme.colors.bg.primary};
-        elevation: 5;
-`;
-
-const RestaurantCardCover = styled(Card.Cover)`
-        padding: ${props => props.theme.space[3]};
-        background-color: ${props => props.theme.colors.bg.primary};
-`;
+import { Info, Section, SectionEnd, Icon, Rating, Address, RestaurantCard, RestaurantCardCover } from './restaurant-info-card.styles';
 
 
 export const RestaurantInfoCard = ({ restaurant = {} }) => {
@@ -65,15 +21,15 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
         isOpenNow = true, 
         rating = 4, 
         isClosedTemp = true 
-    } = restaurant
+    } = restaurant;
 
-    const ratingArray = Array.from( new Array(Math.floor(rating)))
+    const ratingArray = Array.from( new Array(Math.floor(rating)));
 
     return (    
         <RestaurantCard>  
             <RestaurantCardCover key={name} source={{ uri: photos[0] }}/>
             <Info >
-                <Title>{name}</Title>
+                <Text variant='label'>{name}</Text>
                 <Section>
                     <Rating>
                     {ratingArray.map(() => (
@@ -84,12 +40,9 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
                     <SectionEnd>
                         {isClosedTemp &&
                             <Text 
-                                variant='label'
+                                variant='error'
                                 adjustsFontSizeToFit={true} 
-                                style={{
-                                    color: 'red', textAlign: 'center',  display: 'flex',
-                                }}
-                                >
+                            >
                                 CLOSED TEMPORARILY
                             </Text>
                         }
@@ -97,12 +50,12 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
                             {isOpenNow && <SvgXml xml={open} width={20} height={20} />}
                         </Spacer>
                         <Spacer position='left' size='large'>
-                            <Image style={{ width: 15, height:15 }} source={{ uri: icon }} />
+                            <Icon style={{ width: 15, height:15 }} source={{ uri: icon }} />
                         </Spacer>
                     </SectionEnd>
                 </Section>
                 <Address>{address}</Address>
             </Info>
         </RestaurantCard>
-    )
-}
+    );
+};
